@@ -42,7 +42,7 @@ info 'Downloading the configuration'
 info '-----------------------------'
 
 if [ -x "/usr/bin/git" ] ; then
-  git clone --quiet --recursive 'https://github.com/HoplaGeiss/gnupotConfiguration' "$HOME/.gnuConf"
+  git clone --quiet --recursive 'https://github.com/HoplaGeiss/gnuplotConfiguration' "$HOME/.gnuConf"
   cd $HOME/.gnuConf
 else
   fail 'Please install git'
