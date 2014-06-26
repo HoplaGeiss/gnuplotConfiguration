@@ -25,15 +25,11 @@ info '=============================================='
 echo ''
 
 info 'Backing up current gnuplot config'
-info '-----------------------------'
+info '---------------------------------'
 if [ -x "$HOME/.gnuplot" ]
 then
   today=`date +%Y%m%d`
   mv $HOME/.gnuplot $HOME/.gnuplot.$today
-
-  cat > $HOME/.gnuplot << EOF
-  "==== gnuplot Configuration ===="
-  :source $HOME/.gnuConf/gnuplot
 EOF
 fi
 
@@ -42,12 +38,18 @@ info 'Downloading the configuration'
 info '-----------------------------'
 
 if [ -x "/usr/bin/git" ] ; then
-  git clone --quiet --recursive 'https://github.com/HoplaGeiss/gnuplotConfiguration' "$HOME/.gnuConf"
-  cd $HOME/.gnuConf
+  if [ -x "$HOME/.gnuConf" ] ; then
+    cd $HOME/.gnuConf
+    git pull --quiet
+    cd
+  else
+    git clone --quiet 'https://github.com/HoplaGeiss/gnuplotConfiguration' "$HOME/.gnuConf"
+  fi
+  mv $HOME/.gnuConf/gnuplot $HOME/.gnuplot
 else
   fail 'Please install git'
 fi
-echo '.gnuConf imported'
+echo '.gnuplot imported'
 
 
 success 'Setup complete. Enjoy!!'
